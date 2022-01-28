@@ -1,0 +1,55 @@
+﻿@page "/test"
+@using Model
+
+<h3>Binding1</h3>
+
+<Collapsible>
+	<form>
+		<div class="form-group">
+			<input type="number" @bind-value="formPerson.Id" class="form-control" placeholder="Id">
+		</div>
+
+		<div class="form-group">
+			<input type="text" @bind-value="formPerson.FirstName" class="form-control" placeholder="First name">
+		</div>
+
+		<div class="form-group">
+			<input type="text" @bind-value="formPerson.LastName" class="form-control" placeholder="Last name">
+		</div>
+
+		<div class="form-group">
+			<input type="email" @bind-value="formPerson.Email" class="form-control" placeholder="Email">
+		</div>
+
+		<button type="button" class="btn btn-primary" @onclick="formAddPerson">Add</button>
+	</form>
+</Collapsible>
+
+<div class="mt-2 row">
+	@foreach (Person p in personList)
+	{
+		<PersonCard Person="p"></PersonCard>
+	}
+</div>
+
+
+@code {
+	Person formPerson = new Person();
+
+	List<Person> personList = new List<Person>();
+
+	private void formAddPerson(MouseEventArgs e)
+	{
+		personList.Add(formPerson);
+		formPerson = new Person();
+	}
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		personList.Add(new Person() { Id = 1, FirstName = "Anton", LastName = "Udén", Email = "udenanton@hotmail.com" });
+		personList.Add(new Person() { Id = 2, FirstName = "Test 1", LastName = "test 1", Email = "test1@gmail.com" });
+		personList.Add(new Person() { Id = 3, FirstName = "Test 2", LastName = "test 2", Email = "test2@gmail.com" });
+	}
+}

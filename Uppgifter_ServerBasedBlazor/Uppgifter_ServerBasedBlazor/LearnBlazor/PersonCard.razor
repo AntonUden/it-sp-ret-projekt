@@ -1,0 +1,27 @@
+﻿@using Model
+
+<div class="col-4" @onclick="PersonClick">
+	<div class="card">
+		<div class="card-header @(Selected ? "bg-primary" : "")">
+			<span>@(Person.FirstName + " " + Person.LastName)</span>
+		</div>
+		<div class="card-body">
+			<span>@Person.Email</span>
+		</div>
+		<div class="card-footer">
+			<button class="btn btn-primary">More info</button>
+		</div>
+	</div>
+</div>
+
+@code {
+	[Parameter]
+	public Person Person { get; set; }
+
+	public bool Selected = false;
+
+	public void PersonClick(MouseEventArgs e)
+	{
+		Selected = !Selected;
+	}
+}
